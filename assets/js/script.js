@@ -5,16 +5,32 @@ var buttonEl = document.querySelector(".btn");
 var timerEl = document.querySelector(".timer");
 var resultEl = document.querySelector(".result");
 
+//Creating end screen 
+function endScreen() {
+    questionEl.textContent = "Game Over"; //Creating Game Over header
+
+    answerEl.textContent = ""; //Clearing answerEl
+    resultEl.textContent = ""; //Clearing resultEl
+
+    var input = document.createElement("input") //Creating input for initials
+    input.setAttribute("type", "text");
+    input.setAttribute("value", "Input Initials");
+    answerEl.appendChild(input); //Appending the input to the answerEl
+    var submit = document.createElement("button"); //Creating save button
+    submit.classList.add("btn");
+    submit.textContent = "Save";
+    answerEl.appendChild(submit); //Appenging save button to the answerEl
+}
 
 
+//Creating timer
 function startTimer(){
     timer = setInterval(function() {
         timerCount --;
         timerEl.textContent = timerCount;
         if(timerCount == 0) {
             clearInterval(timer);
-            questionEl.textContent = "Game Over";
-            answerEl.textContent ="";        
+            endScreen();
         }
     }, 1000);
 }
@@ -268,27 +284,32 @@ function fourthQuestion() {
     answer1.addEventListener("click", function(){
         timerCount = timerCount - 10;
         resultEl.textContent = "Wrong"
+        endScreen();
         
     })
 
     answer2.addEventListener("click", function(){
         timerCount = timerCount - 10;
         resultEl.textContent = "Wrong"
+        endScreen();
         
     })
 
     answer3.addEventListener("click", function(){
         timerCount = timerCount - 10;
         resultEl.textContent = "Wrong"
+        endScreen();
         
     })
 
     answer4.addEventListener("click", function(){
         resultEl.textContent = "Right!"
+        endScreen();
 
     })
 }
 
+//Creating start game function
 function startGame() {
     timerCount = 20;
     startTimer();
