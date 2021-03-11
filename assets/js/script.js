@@ -12,70 +12,138 @@ function startTimer(){
         timerEl.textContent = timerCount;
         if(timerCount == 0) {
             clearInterval(timer);
-            questionEl.textContent = "You lose";
+            questionEl.textContent = "Game Over";
             answerEl.textContent ="";        
         }
     }, 1000);
 }
 
 function firstQuestion(){
-    //Creating the first question
-    questionEl.textContent = "Commonly used data types DO NOT include:";
+    questionEl.textContent = "Commonly used data types DO NOT include:"; //Creating the first question
+    
+    document.getElementById("answers").style.textAlign ="left"; //aligning the answers to the left
 
-    //aligning the answers to the left
-    document.getElementById("answers").style.textAlign ="left";
+    answerEl.innerHTML = ""; //Clearing the answer element
 
-    //Clearing the answer element
-    answerEl.innerHTML = "";
-
-    //Creating first list element for the first answer.
-    var li1 = document.createElement("li");
+    var li1 = document.createElement("li"); //Creating first list element for the first answer.
 
     //Creating first answer and appending it to the list and then appending the list to the answer element
     var answer1 = document.createElement("button");
     answer1.classList.add("btn");
     answer1.textContent = "Strings";
-    answer1.style.margin = "1%";
     li1.appendChild(answer1);
     answerEl.appendChild(li1);
 
-    //Creating second list element for the first answer.
-    var li2 = document.createElement("li");
+    var li2 = document.createElement("li"); //Creating second list element for the first answer.
 
     //Creating second answer and appending it to the list and then appending the list to the answer element
     var answer2 = document.createElement("button")
     answer2.classList.add("btn");
     answer2.textContent = "Booleans";
-    answer2.style.margin = "1%";
     li2.appendChild(answer2);
     answerEl.appendChild(li2);
 
-    //Creating third list element for the first answer.
-    var li3 = document.createElement("li");
+    var li3 = document.createElement("li"); //Creating third list element for the first answer.
 
     //Creating third answer and appending it to the list and then appending the list to the answer element
+    //THIS IS THE CORRECT ANSWER
     var answer3 = document.createElement("button");
     answer3.classList.add("btn");
     answer3.textContent = "Alerts";
-    answer3.style.margin = "1%";
     li3.appendChild(answer3);
     answerEl.appendChild(li3);
 
-    //Creating fourth list element for the first answer.
-    var li4 = document.createElement("li");
+    var li4 = document.createElement("li");//Creating fourth list element for the first answer.
 
     //Creating fourth answer and appending it to the list and then appending the list to the answer element
     var answer4 = document.createElement("button");
     answer4.classList.add("btn");
     answer4.textContent = "Numbers";
-    answer4.style.margin = "1%";
     li4.appendChild(answer4);
     answerEl.appendChild(li4);
 
-    //Need to create condition that checks which button was pressed, checks if it was correct, and then removes time from the score if wrong
+    //Add event listeners to check which button has been pressed
+    answer1.addEventListener("click", function(){
+        timerCount = timerCount - 10;
+        secondQuestion()
+    })
 
-    //need to addeventlistener to the answerEl that triggers the next question.
+    answer2.addEventListener("click", function(){
+        timerCount = timerCount - 10;
+        secondQuestion()
+    })
 
+    answer3.addEventListener("click", function(){
+        secondQuestion()
+    })
+
+    answer4.addEventListener("click", function(){
+        timerCount = timerCount - 10;
+        secondQuestion()
+    })
+}
+
+function secondQuestion() {
+    questionEl.textContent = "Arrays in JavaScript can be used to store _______."; //Creating second question
+
+    answerEl.innerHTML = ""; //Clearing the answer element
+
+    var li1 = document.createElement("li"); //Creating first list element for the first answer.
+
+    //Creating first answer and appending it to the list and then appending the list to the answer element
+    var answer1 = document.createElement("button");
+    answer1.classList.add("btn");
+    answer1.textContent = "Numbers and strings";
+    li1.appendChild(answer1);
+    answerEl.appendChild(li1);
+
+    var li2 = document.createElement("li"); //Creating second list element for the first answer.
+
+    //Creating second answer and appending it to the list and then appending the list to the answer element
+    var answer2 = document.createElement("button")
+    answer2.classList.add("btn");
+    answer2.textContent = "Other arrays";
+    li2.appendChild(answer2);
+    answerEl.appendChild(li2);
+
+    var li3 = document.createElement("li"); //Creating third list element for the first answer.
+
+    //Creating third answer and appending it to the list and then appending the list to the answer element
+    var answer3 = document.createElement("button");
+    answer3.classList.add("btn");
+    answer3.textContent = "Booleans";
+    li3.appendChild(answer3);
+    answerEl.appendChild(li3);
+
+    var li4 = document.createElement("li");//Creating fourth list element for the first answer.
+
+    //Creating fourth answer and appending it to the list and then appending the list to the answer element
+    //THIS IS THE CORRECT ANSWER
+    var answer4 = document.createElement("button");
+    answer4.classList.add("btn");
+    answer4.textContent = "All of the above";
+    li4.appendChild(answer4);
+    answerEl.appendChild(li4);
+
+    //Add event listeners to check which button has been pressed
+    answer1.addEventListener("click", function(){
+        timerCount = timerCount - 10;
+        /* secondQuestion() */
+    })
+
+    answer2.addEventListener("click", function(){
+        timerCount = timerCount - 10;
+        /* secondQuestion() */
+    })
+
+    answer3.addEventListener("click", function(){
+        timerCount = timerCount - 10;
+        /* secondQuestion() */
+    })
+
+    answer4.addEventListener("click", function(){
+        /* secondQuestion() */
+    })
 }
 
 
