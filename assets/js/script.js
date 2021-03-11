@@ -10,7 +10,7 @@ function startTimer(){
     timer = setInterval(function() {
         timerCount --;
         timerEl.textContent = timerCount;
-        if(timerCount === 0) {
+        if(timerCount == 0) {
             clearInterval(timer);
             questionEl.textContent = "You lose";
             answerEl.textContent ="";        
@@ -19,48 +19,63 @@ function startTimer(){
 }
 
 function firstQuestion(){
+    //Creating the first question
     questionEl.textContent = "Commonly used data types DO NOT include:";
 
+    //aligning the answers to the left
     document.getElementById("answers").style.textAlign ="left";
 
+    //Clearing the answer element
     answerEl.innerHTML = "";
 
-    var li = document.createElement("li");
-    li.textContent = [];
+    //Creating first list element for the first answer.
+    var li1 = document.createElement("li");
 
+    //Creating first answer and appending it to the list and then appending the list to the answer element
     var answer1 = document.createElement("button");
+    answer1.classList.add("btn");
     answer1.textContent = "Strings";
-    li.appendChild(answer1);
-    answerEl.appendChild(li);
+    answer1.style.margin = "1%";
+    li1.appendChild(answer1);
+    answerEl.appendChild(li1);
 
-    var li = document.createElement("li");
-    li.textContent = [];
+    //Creating second list element for the first answer.
+    var li2 = document.createElement("li");
 
-    var answer2 = document.createElement("button");
+    //Creating second answer and appending it to the list and then appending the list to the answer element
+    var answer2 = document.createElement("button")
+    answer2.classList.add("btn");
     answer2.textContent = "Booleans";
-    li.appendChild(answer2);
-    answerEl.appendChild(li);
+    answer2.style.margin = "1%";
+    li2.appendChild(answer2);
+    answerEl.appendChild(li2);
 
-    var li = document.createElement("li");
-    li.textContent = [];
+    //Creating third list element for the first answer.
+    var li3 = document.createElement("li");
 
+    //Creating third answer and appending it to the list and then appending the list to the answer element
     var answer3 = document.createElement("button");
+    answer3.classList.add("btn");
     answer3.textContent = "Alerts";
-    li.appendChild(answer3);
-    answerEl.appendChild(li);
+    answer3.style.margin = "1%";
+    li3.appendChild(answer3);
+    answerEl.appendChild(li3);
 
-    var li = document.createElement("li");
-    li.textContent = [];
+    //Creating fourth list element for the first answer.
+    var li4 = document.createElement("li");
 
+    //Creating fourth answer and appending it to the list and then appending the list to the answer element
     var answer4 = document.createElement("button");
+    answer4.classList.add("btn");
     answer4.textContent = "Numbers";
-    li.appendChild(answer4);
-    answerEl.appendChild(li);
+    answer4.style.margin = "1%";
+    li4.appendChild(answer4);
+    answerEl.appendChild(li4);
 
-    /* answerEl.innerHTML ="";
-    var answer1 = document.createElement("li");
-    answer1.textContent = "Strings";
-    answer1.setAttribute() */
+    //Need to create condition that checks which button was pressed, checks if it was correct, and then removes time from the score if wrong
+
+    //need to addeventlistener to the answerEl that triggers the next question.
+
 }
 
 
