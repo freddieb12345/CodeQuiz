@@ -5,8 +5,23 @@ var buttonEl = document.querySelector(".btn");
 var timerEl = document.querySelector(".timer");
 var resultEl = document.querySelector(".result");
 
+function updateScores() {
+    var li1 = document.createElement("li"); //Creating list element
+    
+    var score = localStorage.getItem("timer");//Getting score from local storage
+    var initials = localStorage.getItem("inputValue");//Getting initials from local storage
+
+    li1.textContent = score + "-" + initials;
+    
+    answerEl.appendChild(li1);
+}
+
 //Creating end screen 
-function endScreen() {
+function endScreen(timeLeft) {
+    clearInterval(timer);
+    /* localStorage.setItem("timer", JSON.stringify(timer)); */
+    answerEl.style.textAlign ="center";
+
     questionEl.textContent = "Game Over"; //Creating Game Over header
 
     answerEl.textContent = ""; //Clearing answerEl
@@ -19,18 +34,30 @@ function endScreen() {
     var submit = document.createElement("button"); //Creating save button
     submit.classList.add("btn");
     submit.textContent = "Save";
-    answerEl.appendChild(submit); //Appenging save button to the answerEl
-}
+    answerEl.appendChild(submit); //Appending save button to the answerEl
 
+    /* var timer = resultEl.value; */
+    console.log(timeLeft);
+    localStorage.setItem("timer", JSON.stringify(timeLeft));
+
+    submit.addEventListener("click", function() {
+        var inputValue = document.querySelector("input").value;
+        localStorage.setItem("inputValue", inputValue);
+
+        updateScores();
+    })
+}
 
 //Creating timer
 function startTimer(){
     timer = setInterval(function() {
         timerCount --;
         timerEl.textContent = timerCount;
+        var timeLeft = timerCount;
+        /* console.log(timeLeft); */
         if(timerCount == 0) {
             clearInterval(timer);
-            endScreen();
+            endScreen(timeLeft);
         }
     }, 1000);
 }
@@ -283,28 +310,32 @@ function fourthQuestion() {
     //Add event listeners to check which button has been pressed
     answer1.addEventListener("click", function(){
         timerCount = timerCount - 10;
+        var timeLeft = timerCount;
         resultEl.textContent = "Wrong"
-        endScreen();
+        endScreen(timeLeft);
         
     })
 
     answer2.addEventListener("click", function(){
         timerCount = timerCount - 10;
+        var timeLeft = timerCount;
         resultEl.textContent = "Wrong"
-        endScreen();
+        endScreen(timeLeft);
         
     })
 
     answer3.addEventListener("click", function(){
         timerCount = timerCount - 10;
+        var timeLeft = timerCount;
         resultEl.textContent = "Wrong"
-        endScreen();
+        endScreen(timeLeft);
         
     })
 
     answer4.addEventListener("click", function(){
         resultEl.textContent = "Right!"
-        endScreen();
+        var timeLeft = timerCount;
+        endScreen(timeLeft);
 
     })
 }
