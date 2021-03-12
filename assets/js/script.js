@@ -6,6 +6,8 @@ var timerEl = document.querySelector(".timer");
 var resultEl = document.querySelector(".result");
 var scoreEl = document.querySelector(".scoreboard")
 
+var scoreboard = {};
+
 var initials = [];
 var timerScore = [];
 
@@ -14,13 +16,23 @@ function updateScores() {
     document.getElementById("scoreboard").style.display="inline";
 
     scoreEl.innerHTML = "Highscores"; //Clear the scoreElement
+    var sortable =[];
 
-    for (var i = 0; i < timerScore.length; i++) {
-        var score = timerScore[i];
-        var initial = initials[i];
+    for (var i in scoreboard) {
+        sortable.push([i, scoreboard[i]]);
+    }
+    sortable.sort(function(a, b) {
+        return b[1] - a[1];
+    });
+    var sortedScoreboard = {};
 
-        var li = document.createElement("li");
-        li.textContent = [i+1]+"." + " " + initial + " " + score;
+    sortable.forEach(function(item){
+        sortedScoreboard[item[0]]=item[1]
+    })
+
+    for (var i in sortedScoreboard) {
+        var li = document.createElement("li")
+        li.textContent = [i] + " " + sortedScoreboard[i];
         /* li.setAttribute("data-index", i); */
     
         scoreEl.appendChild(li);
@@ -39,15 +51,10 @@ function updateScores() {
 
 function init() {
     document.getElementById("scoreboard").style.display="none";
-    var storedScores = JSON.parse(localStorage.getItem("timer"));
-    var storedInitials = JSON.parse(localStorage.getItem("initials"));
+    var storedScoreboard = JSON.parse(localStorage.getItem("scoreboard"));
 
-    if (storedScores !== null) {
-        timerScore = storedScores;
-    }
-
-    if (storedInitials !== null) {
-        initials = storedInitials;
+    if (storedScoreboard !== null) {
+        scoreboard = storedScoreboard;
     }
     /* updateScores(); */
 }
@@ -76,21 +83,25 @@ function endScreen(timeLeft) {
     submit.textContent = "Save";
     answerEl.appendChild(submit); //Appending save button to the answerEl
 
-    console.log(timerScore)
+    /* console.log(timerScore)
     timerScore.push(timeLeft);
-    console.log(timerScore);
+    timerScore.sort(function(a, b){return b-a});
 
-    localStorage.setItem("timer", JSON.stringify(timerScore));
+    localStorage.setItem("timer", JSON.stringify(timerScore)); */
 
     submit.addEventListener("click", function(event) {
         event.preventDefault();
 
         var inputValue = document.querySelector("input").value;
+
+        scoreboard[inputValue] = timeLeft //adding score and initials to the scoreboard object
+        console.log(scoreboard);
     
-        initials.push(inputValue);
-        console.log(initials)
+        /* initials.push(inputValue);
+        console.log(initials);
+        initials.sort(function(a, b){return b-a}); */
         
-        localStorage.setItem("initials", JSON.stringify(initials));
+        localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
         updateScores();
     })
     
@@ -399,7 +410,7 @@ function fourthQuestion() {
 
 //Creating start game function
 function startGame() {
-    timerCount = 3;
+    timerCount = 20;
     startTimer();
     firstQuestion();
 }
