@@ -4,22 +4,62 @@ var answerEl = document.querySelector(".answers");
 var buttonEl = document.querySelector(".btn");
 var timerEl = document.querySelector(".timer");
 var resultEl = document.querySelector(".result");
+var scoreEl = document.querySelector(".scoreboard")
+
+var initials = [];
+var timerScore = [];
+
 
 function updateScores() {
-    var li1 = document.createElement("li"); //Creating list element
+    document.getElementById("scoreboard").style.display="inline";
+
+    scoreEl.innerHTML = "Highscores"; //Clear the scoreElement
+
+    for (var i = 0; i < timerScore.length; i++) {
+        var score = timerScore[i];
+        var initial = initials[i];
+
+        var li = document.createElement("li");
+        li.textContent = [i+1]+"." + " " + initial + " " + score;
+        /* li.setAttribute("data-index", i); */
+    
+        scoreEl.appendChild(li);
+      }
+
+
+    /* var scoreboardList = document.createElement("li"); //Creating list element
     
     var score = localStorage.getItem("timer");//Getting score from local storage
     var initials = localStorage.getItem("inputValue");//Getting initials from local storage
 
-    li1.textContent = score + "-" + initials;
+    scoreboardList.textContent = score + "-" + initials;
     
-    answerEl.appendChild(li1);
+    scoreEl.appendChild(scoreboardList); */
+}
+
+function init() {
+    document.getElementById("scoreboard").style.display="none";
+    var storedScores = JSON.parse(localStorage.getItem("timer"));
+    var storedInitials = JSON.parse(localStorage.getItem("initials"));
+
+    if (storedScores !== null) {
+        timerScore = storedScores;
+    }
+
+    if (storedInitials !== null) {
+        initials = storedInitials;
+    }
+    /* updateScores(); */
 }
 
 //Creating end screen 
 function endScreen(timeLeft) {
+    document.getElementById("startButton").style.display="inline";
+    buttonEl.textContent = "Start again";
+    
     clearInterval(timer);
-    /* localStorage.setItem("timer", JSON.stringify(timer)); */
+    
+    scoreEl.textContent ="Highscores";
     answerEl.style.textAlign ="center";
 
     questionEl.textContent = "Game Over"; //Creating Game Over header
@@ -36,16 +76,24 @@ function endScreen(timeLeft) {
     submit.textContent = "Save";
     answerEl.appendChild(submit); //Appending save button to the answerEl
 
-    /* var timer = resultEl.value; */
-    console.log(timeLeft);
-    localStorage.setItem("timer", JSON.stringify(timeLeft));
+    console.log(timerScore)
+    timerScore.push(timeLeft);
+    console.log(timerScore);
 
-    submit.addEventListener("click", function() {
+    localStorage.setItem("timer", JSON.stringify(timerScore));
+
+    submit.addEventListener("click", function(event) {
+        event.preventDefault();
+
         var inputValue = document.querySelector("input").value;
-        localStorage.setItem("inputValue", inputValue);
-
+    
+        initials.push(inputValue);
+        console.log(initials)
+        
+        localStorage.setItem("initials", JSON.stringify(initials));
         updateScores();
     })
+    
 }
 
 //Creating timer
@@ -77,7 +125,7 @@ function firstQuestion(){
     answer1.textContent = "Strings";
     li1.appendChild(answer1);
     answerEl.appendChild(li1);
-
+    
     var li2 = document.createElement("li"); //Creating second list element for the first answer.
 
     //Creating second answer and appending it to the list and then appending the list to the answer element
@@ -106,6 +154,7 @@ function firstQuestion(){
     li4.appendChild(answer4);
     answerEl.appendChild(li4);
 
+    
     //Add event listeners to check which button has been pressed
     answer1.addEventListener("click", function(){
         timerCount = timerCount - 10;
@@ -129,6 +178,11 @@ function firstQuestion(){
         resultEl.textContent = "Wrong"
         secondQuestion()
     })
+    /* document.scoreEl.style.display ="none"; */
+    
+    document.getElementById("startButton").style.display="none";
+    document.getElementById("scoreboard").style.display="none";
+    
 }
 
 function secondQuestion() {
@@ -196,6 +250,7 @@ function secondQuestion() {
         resultEl.textContent = "Right!"
         thirdQuestion()
     })
+    /* document.scoreEl.style.display ="none"; */
 }
 
 function thirdQuestion() {
@@ -263,6 +318,7 @@ function thirdQuestion() {
         resultEl.textContent = "Wrong"
         fourthQuestion()
     })
+    /* document.scoreEl.style.display ="none"; */
 }
 
 function fourthQuestion() {
@@ -338,11 +394,12 @@ function fourthQuestion() {
         endScreen(timeLeft);
 
     })
+    /* document.scoreEl.style.display ="none"; */
 }
 
 //Creating start game function
 function startGame() {
-    timerCount = 20;
+    timerCount = 3;
     startTimer();
     firstQuestion();
 }
@@ -351,3 +408,5 @@ function startGame() {
 
 
 buttonEl.addEventListener("click", startGame);
+
+init();
