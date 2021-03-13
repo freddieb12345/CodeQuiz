@@ -1,32 +1,38 @@
-main {
+main { /* Aliging the main card to the center of the screen */
     margin-top: 5%;
     margin-left: 30%;
     margin-right: 30%;
     text-align: center;
 }
 
-h1 {
+h1 { /* Formatting header */
     font-size: 150%;
     font-weight: bolder;  
 }
 
-p {
+p { /* formatting text */
     font-size: 80%;
     margin: 2%
 }
 
-.btn {
+.btn { /* Formatting buttons */
     background-color: #755e94;
-    margin: 1%;
+    margin: 0.5%;
     border-radius: 5%;
     color: white;
-    padding: 1% 5%;
+    padding: 0.5% 2.5%;
     font-size: 16px;
 }
 
-.result {
+.result { 
     font-style: italic;
     font-weight: lighter;
     font-size: medium;
     color: grey;
+}
+
+.scoreboard {
+    text-transform: capitalize;
+    font-weight: bold;
+    margin-bottom: 5%;
 }

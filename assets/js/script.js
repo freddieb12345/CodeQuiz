@@ -6,49 +6,41 @@ var timerEl = document.querySelector(".timer");
 var resultEl = document.querySelector(".result");
 var scoreEl = document.querySelector(".scoreboard")
 
+//Creating scoreboard object that will store the initials of a player and their score
 var scoreboard = {};
 
-var initials = [];
-var timerScore = [];
-
-
+//Creating function that updates the scoreboard with the new score
 function updateScores() {
-    document.getElementById("scoreboard").style.display="inline";
+    document.getElementById("scoreboard").style.display="inline"; //Displays the scoreboard
 
-    scoreEl.innerHTML = "Highscores"; //Clear the scoreElement
-    var sortable =[];
+    scoreEl.innerHTML = "Highscores"; //Creates title for the scoreboard
+    var sortable =[]; //Creates array to sort the scoreboard object
 
+    //Adding each element of the scoreboard object into the sortable array
     for (var i in scoreboard) {
         sortable.push([i, scoreboard[i]]);
-    }
+    } 
+    //Sorting the sortable array in descending order
     sortable.sort(function(a, b) {
         return b[1] - a[1];
     });
-    var sortedScoreboard = {};
 
+    var sortedScoreboard = {};//Creates new object for the sorted scoreboard
+
+    //for each element in the array, add the key-value pair to the sorted scoreboard object
     sortable.forEach(function(item){
         sortedScoreboard[item[0]]=item[1]
     })
 
+    //printing the newly sorted object to the screen as a list
     for (var i in sortedScoreboard) {
         var li = document.createElement("li")
         li.textContent = [i] + " " + sortedScoreboard[i];
-        /* li.setAttribute("data-index", i); */
-    
         scoreEl.appendChild(li);
       }
-
-
-    /* var scoreboardList = document.createElement("li"); //Creating list element
-    
-    var score = localStorage.getItem("timer");//Getting score from local storage
-    var initials = localStorage.getItem("inputValue");//Getting initials from local storage
-
-    scoreboardList.textContent = score + "-" + initials;
-    
-    scoreEl.appendChild(scoreboardList); */
 }
 
+//Creating initialise function that is called when the page loads in order to get all the past highscores
 function init() {
     document.getElementById("scoreboard").style.display="none";
     var storedScoreboard = JSON.parse(localStorage.getItem("scoreboard"));
@@ -56,18 +48,17 @@ function init() {
     if (storedScoreboard !== null) {
         scoreboard = storedScoreboard;
     }
-    /* updateScores(); */
 }
 
 //Creating end screen 
 function endScreen(timeLeft) {
-    document.getElementById("startButton").style.display="inline";
-    buttonEl.textContent = "Start again";
+    document.getElementById("startButton").style.display="inline";//Making start button vissible again
+    buttonEl.textContent = "Start again";//Changing start button text 
     
-    clearInterval(timer);
+    clearInterval(timer); //Stop the timer ticking
     
-    scoreEl.textContent ="Highscores";
-    answerEl.style.textAlign ="center";
+    scoreEl.textContent ="Highscores"; //Adding title to the scoreboard
+    answerEl.style.textAlign ="center";//Aligning the input box
 
     questionEl.textContent = "Game Over"; //Creating Game Over header
 
@@ -79,15 +70,9 @@ function endScreen(timeLeft) {
     input.setAttribute("value", "Input Initials");
     answerEl.appendChild(input); //Appending the input to the answerEl
     var submit = document.createElement("button"); //Creating save button
-    submit.classList.add("btn");
+    submit.classList.add("btn"); //adding the btn class to the submit button
     submit.textContent = "Save";
     answerEl.appendChild(submit); //Appending save button to the answerEl
-
-    /* console.log(timerScore)
-    timerScore.push(timeLeft);
-    timerScore.sort(function(a, b){return b-a});
-
-    localStorage.setItem("timer", JSON.stringify(timerScore)); */
 
     submit.addEventListener("click", function(event) {
         event.preventDefault();
@@ -96,10 +81,6 @@ function endScreen(timeLeft) {
 
         scoreboard[inputValue] = timeLeft //adding score and initials to the scoreboard object
         console.log(scoreboard);
-    
-        /* initials.push(inputValue);
-        console.log(initials);
-        initials.sort(function(a, b){return b-a}); */
         
         localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
         updateScores();
@@ -110,11 +91,11 @@ function endScreen(timeLeft) {
 //Creating timer
 function startTimer(){
     timer = setInterval(function() {
-        timerCount --;
-        timerEl.textContent = timerCount;
-        var timeLeft = timerCount;
-        /* console.log(timeLeft); */
-        if(timerCount == 0) {
+        timerCount --; //causes timer to count down once every second
+        timerEl.textContent = timerCount; //adds the timer to the timerEl
+        var timeLeft = timerCount; //Creates variable for the timer
+        //Causes the game to end when time equals 0
+        if(timerCount == 0) { 
             clearInterval(timer);
             endScreen(timeLeft);
         }
@@ -415,9 +396,6 @@ function startGame() {
     firstQuestion();
 }
 
+buttonEl.addEventListener("click", startGame); //checks whether the start game button has been pressed 
 
-
-
-buttonEl.addEventListener("click", startGame);
-
-init();
+init(); //calling initialize function when page opens

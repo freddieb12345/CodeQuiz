@@ -9,18 +9,17 @@
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
 </head>
 <body>
-    <main class ="card">
-        <h1 class ="questions">Coding Quiz Challenge</h1>
+    <main class ="card"> <!-- Creating main card for all content to go in -->
+        <h1 class ="questions">Coding Quiz Challenge</h1> <!-- Creating first element that the questions/title of the page will go in -->
+        <!-- Creating element for the answer options to go in -->
         <p class ="answers" id ="answers">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your time by ten seconds!</p>
-        <ul class = "scoreboard" id ="scoreboard"></ul>
-        <button class = "btn" id ="startButton">Start Quiz</button>
-        <section class = "timer" id ="timer">10</section>
-        <container class = "result"></container>
-        
-        
-        
-        
-
+        <!-- Creating scroreboard element with list inside -->
+        <container class = score-card>
+            <ol class = "scoreboard" id ="scoreboard"></ol>
+        </container>
+        <button class = "btn" id ="startButton">Start Quiz</button><!-- Creating start button -->
+        <section class = "timer" id ="timer">10</section> <!-- Creating timer -->
+        <article class = "result"></article> <!-- Creating element that shows you if you get the answer right or wrong -->
     </main>
     <script src="assets/js/script.js"></script>
 </body>
