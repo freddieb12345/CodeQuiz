@@ -12,8 +12,9 @@ var scoreboard = {};
 //Creating function that updates the scoreboard with the new score
 function updateScores() {
     document.getElementById("scoreboard").style.display="inline"; //Displays the scoreboard
-
-    scoreEl.innerHTML = "Highscores"; //Creates title for the scoreboard
+    document.getElementById("answers").style.display="none";
+    document.getElementById("timer").style.display="none";
+    questionEl.innerHTML = "Highscores"; //Creates title for the scoreboard
     var sortable =[]; //Creates array to sort the scoreboard object
 
     //Adding each element of the scoreboard object into the sortable array
@@ -34,7 +35,7 @@ function updateScores() {
 
     //printing the newly sorted object to the screen as a list
     for (var i in sortedScoreboard) {
-        var li = document.createElement("li")
+        var li = document.createElement("li");
         li.textContent = [i] + " " + sortedScoreboard[i];
         scoreEl.appendChild(li);
       }
@@ -57,7 +58,7 @@ function endScreen(timeLeft) {
     
     clearInterval(timer); //Stop the timer ticking
     
-    scoreEl.textContent ="Highscores"; //Adding title to the scoreboard
+    /* scoreEl.textContent ="Highscores"; */ //Adding title to the scoreboard
     answerEl.style.textAlign ="center";//Aligning the input box
 
     questionEl.textContent = "Game Over"; //Creating Game Over header
@@ -391,6 +392,8 @@ function fourthQuestion() {
 
 //Creating start game function
 function startGame() {
+    document.getElementById("answers").style.display="block";
+    document.getElementById("timer").style.display="block";
     timerCount = 20;
     startTimer();
     firstQuestion();
